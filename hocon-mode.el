@@ -23,5 +23,24 @@
 ;;; Commentary:
 
 ;;; Code:
+(defvar hocon-mode-syntax-table nil "Syntax table for `hocon-mode'.")
+
+(setq hocon-mode-syntax-table
+      (let ((synTable (make-syntax-table)))
+        (modify-syntax-entry ?# "<" synTable)
+        (modify-syntax-entry ?\n ">" synTable)
+        (modify-syntax-entry ?/ ". 12" synTable)
+        synTable))
+
+(defvar myhtml-highlights nil "First element for `font-lock-defaults'.")
+
+(setq myhtml-highlights
+      '(("<h1>\\|</h1>" . font-lock-function-name-face)
+        ("<h1>\\([^<]+?\\)</h1>" . (1 font-lock-constant-face))))
+
+(define-derived-mode hocon-mode prog-mode "HOCON"
+  "Major mode for editing HOCON(Linden Scripting Language)…"
+   (setq font-lock-defaults '(myhtml-highlights)))
+
 (provide 'hocon-mode)
 ;;; hocon-mode.el ends here
