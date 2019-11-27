@@ -39,7 +39,7 @@
         ("<h1>\\([^<]+?\\)</h1>" . (1 font-lock-constant-face))
         ("\\(.*\\){" . (1 font-lock-function-name-face))
         ("\\([^\n.]*\\)=" . (1 font-lock-constant-face))
-        ("\\(\\([^.\n=]+\\)\\.\\)" . (2 font-lock-function-name-face))))
+        ("\\([^.\n=]+\\)\\." . (1 font-lock-function-name-face))))
 
 (define-derived-mode hocon-mode prog-mode "HOCON"
   "Major mode for editing HOCON(Linden Scripting Language)…"
