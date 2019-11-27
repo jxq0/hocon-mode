@@ -32,18 +32,18 @@
         (modify-syntax-entry ?/ ". 12" synTable)
         synTable))
 
-(defvar myhtml-highlights nil "First element for `font-lock-defaults'.")
+(defvar hocon-mode-font-lock-keywords nil "First element for `font-lock-defaults'.")
 
-(setq myhtml-highlights
-      '(("<h1>\\|</h1>" . font-lock-function-name-face)
-        ("<h1>\\([^<]+?\\)</h1>" . (1 font-lock-constant-face))
-        ("\\(.*\\){" . (1 font-lock-function-name-face))
-        ("\\([^\n.]*\\)=" . (1 font-lock-constant-face))
-        ("\\([^.\n=]+\\)\\." . (1 font-lock-function-name-face))))
+(setq hocon-mode-font-lock-keywords
+      '(
+        ("\\(.*\\)\\s-*{" . (1 font-lock-type-face))
+        ("\\([^\n.]*\\)=" . (1 font-lock-variable-name-face))
+        ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
+        ))
 
 (define-derived-mode hocon-mode prog-mode "HOCON"
   "Major mode for editing HOCON(Linden Scripting Language)…"
-   (setq font-lock-defaults '(myhtml-highlights)))
+  (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords)))
 
 (provide 'hocon-mode)
 ;;; hocon-mode.el ends here
