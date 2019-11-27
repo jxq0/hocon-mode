@@ -36,7 +36,7 @@
 
 (setq hocon-mode-font-lock-keywords
       '(
-        ("\\(.*\\)\\s-*{" . (1 font-lock-type-face))
+        ("\\([^=:{}\n]*\\)=?:?\\s-*\n*{" . (1 font-lock-type-face))
         ("\\([^\n.]*\\)=" . (1 font-lock-variable-name-face))
         ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
         ))
