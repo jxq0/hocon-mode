@@ -32,15 +32,20 @@
         (modify-syntax-entry ?/ ". 12" synTable)
         synTable))
 
+(defconst hocon-keyword-re
+  (regexp-opt '("true" "false"))
+  "Regexp matching any Hocon keyword.")
+
 (defvar hocon-mode-font-lock-keywords nil "First element for `font-lock-defaults'.")
 
 (setq hocon-mode-font-lock-keywords
-      '(
+      `((,hocon-keyword-re . font-lock-keyword-face)
         ("\\([^=:{}\n]*\\)=?:?\\s-*\n*{" . (1 font-lock-type-face))
         ("\\([^\n.]*\\)=" . (1 font-lock-variable-name-face))
         ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
         ))
 
+;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
   "Major mode for editing HOCON(Linden Scripting Language)…"
   (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords)))
