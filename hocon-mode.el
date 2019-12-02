@@ -47,7 +47,7 @@
 
 ;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
-  "Major mode for editing HOCON(Linden Scripting Language)…"
+  "Major mode for editing HOCON(Human-Optimized Config Object Notation)…"
   (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords)))
 
 (provide 'hocon-mode)
