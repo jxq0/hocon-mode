@@ -45,10 +45,15 @@
         ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
         ))
 
+(defun hocon-indent-line (&optional indent)
+  "Indent current line as Hocon."
+  (interactive))
+
 ;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
   "Major mode for editing HOCON(Human-Optimized Config Object Notation)…"
-  (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords)))
+  (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords))
+  (setq-local indent-line-function 'lisp-indent-line))
 
 (provide 'hocon-mode)
 ;;; hocon-mode.el ends here
