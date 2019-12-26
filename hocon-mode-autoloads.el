@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "hocon-mode" "hocon-mode.el" (24036 24379 932971
-;;;;;;  774000))
+;;;### (autoloads nil "hocon-mode" "hocon-mode.el" (24036 25889 621275
+;;;;;;  449000))
 ;;; Generated autoloads from hocon-mode.el
 
 (autoload 'hocon-mode "hocon-mode" "\

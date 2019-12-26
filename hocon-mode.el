@@ -45,10 +45,25 @@
         ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
         ))
 
+(defun hocon-indent-line ()
+  (interactive)
+  (message "indent called")
+  (beginning-of-line)
+  (if (bobp)
+      (indent-line-to 0)
+    (save-excursion
+      (forward-line -1)
+      (if (looking-at "^.*{\\s-*$")
+          (message "match {")
+        (message "not match")))
+    )
+  )
+
 ;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
   "Major mode for editing HOCON(Human-Optimized Config Object Notation)…"
-  (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords)))
+  (set (make-local-variable 'font-lock-defaults) '(hocon-mode-font-lock-keywords))
+  (setq-local indent-line-function 'hocon-indent-line))
 
 (provide 'hocon-mode)
 ;;; hocon-mode.el ends here
