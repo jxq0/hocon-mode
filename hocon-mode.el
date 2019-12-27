@@ -49,15 +49,37 @@
   (interactive)
   (message "indent called")
   (beginning-of-line)
-  (if (bobp)
-      (indent-line-to 0)
-    (save-excursion
-      (forward-line -1)
-      (if (looking-at "^.*{\\s-*$")
-          (message "match {")
-        (message "not match")))
-    )
-  )
+  (if (bobp) (indent-line-to 0)
+    (let ((new-indent nil) (not-indented t))
+      (if (looking-at "^\\s-*}\\s-*$")
+          (progn
+            (message "find }")
+            (save-excursion
+              (while not-indented
+                (forward-line -1)
+                (if (looking-at "^.*{\\s-*$")
+                    (progn
+                      (message "current %d" (current-indentation))
+                      (setq new-indent (current-indentation))
+                      (setq not-indented nil))
+                  (if (bobp)
+                      (setq not-indented nil)
+                    (message "not match"))))))
+        (save-excursion
+          (while not-indented
+            (forward-line -1)
+            (if (looking-at "^.*{\\s-*$")
+                (progn
+                  (message "current %d" (current-indentation))
+                  (setq new-indent (+ (current-indentation) 2))
+                  (setq not-indented nil))
+              (if (bobp)
+                  (setq not-indented nil)
+                (message "not match"))))))
+        (if new-indent
+            (progn
+              (message "%d" new-indent)
+              (indent-line-to new-indent))))))
 
 ;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
