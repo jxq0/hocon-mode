@@ -45,13 +45,12 @@
         ("\\([^.\n=]+\\)\\." . (1 font-lock-type-face))
         ))
 
-(defun hocon-indent-line ()
-  "Indent line for hocon."
-  (interactive)
+(defun calculate-hocon-indent ()
   (beginning-of-line)
   (if (bobp)
       (indent-line-to 0)
-    (let ((new-indent nil) (not-indented t))
+    (let ((new-indent nil)
+          (not-indented t))
       (if (looking-at "^\\s-*}\\s-*$")
           (save-excursion
             (while not-indented
@@ -79,9 +78,17 @@
                      (setq new-indent (+ (current-indentation) 2))
                      (setq not-indented nil)))
                   ((bobp) (setq not-indented nil))))))
-        (if new-indent
-            (progn
-              (indent-line-to new-indent))))))
+      new-indent)))
+
+(defun hocon-indent-line ()
+  "Indent line for hocon."
+  (interactive)
+  (let ((pos (- (point-max) (point)))
+        (new-indent (calculate-hocon-indent)))
+    (if new-indent
+        (progn
+          (indent-line-to new-indent)))
+    (goto-char (- (point-max) pos))))
 
 ;;;###autoload
 (define-derived-mode hocon-mode prog-mode "HOCON"
